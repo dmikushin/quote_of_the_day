@@ -1,5 +1,5 @@
-#ifndef CLIENT_SOCKET_HH
-#define CLIENT_SOCKET_HH
+#ifndef CLIENT_SOCKET_H
+#define CLIENT_SOCKET_H
 
 #include <string>
 
@@ -26,4 +26,5 @@ private:
   Server& _server;
 };
 
-#endif
+#endif // CLIENT_SOCKET_H
+

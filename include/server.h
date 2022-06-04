@@ -1,5 +1,5 @@
-#ifndef SERVER_HH
-#define SERVER_HH
+#ifndef SERVER_H
+#define SERVER_H
 
 #include <functional>
 #include <memory>
@@ -45,4 +45,5 @@ private:
   std::mutex _staleFileDescriptorsMutex;
 };
 
-#endif
+#endif // SERVER_H
+

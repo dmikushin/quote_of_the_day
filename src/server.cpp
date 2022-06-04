@@ -1,5 +1,5 @@
-#include "ClientSocket.hh"
-#include "Server.hh"
+#include "client_socket.h"
+#include "server.h"
 
 #include <errno.h>
 #include <string.h>
