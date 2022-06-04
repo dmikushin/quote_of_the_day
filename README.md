@@ -1,6 +1,6 @@
 # Simple Quote Of The Day TCP/IP server implementation in modern C++
 
-This repository contains [my](http://bastian.rieck.ru) implementation of
+This repository contains [my](http://bastian.rieck.me) implementation of
 a simple TCP/IP server in C++. I started fiddling with this to learn
 more about UNIX network programming.
 

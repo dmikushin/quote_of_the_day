@@ -12,16 +12,18 @@
 
 Server server;
 
-void handleExitSignal( int /* signal */ )
+static void handleExitSignal( int /* signal */ )
 {
   server.close();
 }
+
+static const int port = 1031;
 
 int main( int /* argc */, char** /* argv */ )
 {
   signal( SIGINT, handleExitSignal );
 
-  server.setPort( 1031 );
+  server.setPort( port );
 
   server.onRead( [&] ( std::weak_ptr<ClientSocket> socket )
   {
@@ -31,6 +33,8 @@ int main( int /* argc */, char** /* argv */ )
       s->write( data );
     }
   } );
+
+  std::cout << "Echo server started at port " << port << std::endl;
 
   server.listen();
 

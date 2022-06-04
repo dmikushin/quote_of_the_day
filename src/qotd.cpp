@@ -4,18 +4,19 @@
 #include <signal.h>
 
 #include <fstream>
+#include <iostream>
 #include <random>
 #include <string>
 #include <vector>
 
 Server server;
 
-void handleExitSignal( int /* signal */ )
+static void handleExitSignal( int /* signal */ )
 {
   server.close();
 }
 
-void unescapeQuote( std::string& quote )
+static void unescapeQuote( std::string& quote )
 {
   std::size_t position    = 0;
   std::string target      = "\\n";
@@ -45,6 +46,8 @@ std::vector<std::string> readQuotes( const std::string& filename )
   return quotes;
 }
 
+static const int port = 1041;
+
 int main( int argc, char** argv )
 {
   std::vector<std::string> quotes;
@@ -60,7 +63,7 @@ int main( int argc, char** argv )
 
   signal( SIGINT, handleExitSignal );
 
-  server.setPort( 1041 );
+  server.setPort( port );
 
   server.onAccept( [&] ( std::weak_ptr<ClientSocket> socket )
   {
@@ -70,6 +73,8 @@ int main( int argc, char** argv )
       s->close();
     }
   } );
+
+  std::cout << "QOTD server started at port " << port << std::endl;  
 
   server.listen();
 
