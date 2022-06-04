@@ -1,25 +1,20 @@
-CMAKE_MINIMUM_REQUIRED( VERSION 3.1 )
+cmake_minimum_required(VERSION 3.1)
 
-PROJECT( SimpleServer CXX C )
+project(qotd CXX C)
 
-SET( CMAKE_CXX_STANDARD 11 )
+set(CMAKE_CXX_STANDARD 11)
 
-SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic" )
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 
-FIND_PACKAGE( Threads REQUIRED )
+find_package(Threads REQUIRED)
 
-ADD_EXECUTABLE( qotd
-  qotd.cc
-  ClientSocket.cc
-  Server.cc
-)
+add_library(${PROJECT_NAME}_core src/client_socket.cpp src/server.cpp)
+target_include_directories(${PROJECT_NAME}_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(${PROJECT_NAME}_core ${CMAKE_THREAD_LIBS_INIT})
 
-TARGET_LINK_LIBRARIES( qotd ${CMAKE_THREAD_LIBS_INIT} )
+add_executable(${PROJECT_NAME} src/qotd.cpp)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_core)
 
-ADD_EXECUTABLE( echo
-  echo.cc
-  ClientSocket.cc
-  Server.cc
-)
+add_executable(${PROJECT_NAME}_echo src/echo.cpp)
+target_link_libraries(${PROJECT_NAME}_echo ${PROJECT_NAME}_core)
 
-TARGET_LINK_LIBRARIES( echo ${CMAKE_THREAD_LIBS_INIT} )
